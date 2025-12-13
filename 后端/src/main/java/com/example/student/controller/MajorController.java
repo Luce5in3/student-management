@@ -34,8 +34,7 @@ public class MajorController {
     /**
      * 获取专业列表（分页）
      * 
-     * @param current 当前页
-     * @param size 每页数量
+
      * @param name 专业名称（可选）
      * @param code 专业编码（可选）
      * @param departmentId 所属院系ID（可选）

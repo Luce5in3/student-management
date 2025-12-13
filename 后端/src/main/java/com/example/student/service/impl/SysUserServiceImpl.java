@@ -79,6 +79,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 queryDTO.getPhone(),
                 queryDTO.getStatus(),
                 queryDTO.getUserType());
+
+        // 处理头像URL，确保所有用户的头像URL都是正确的格式
+        if (result.getRecords() != null) {
+            result.getRecords().forEach(user -> {
+                if (user.getAvatar() != null) {
+                    user.setAvatar(getEffectiveAvatarUrl(user.getAvatar()));
+                }
+            });
+        }
+
         // 返回结果
         return PageResult.build(result.getRecords(), result.getTotal(), queryDTO.getPageNum(), queryDTO.getPageSize());
     }
@@ -258,7 +268,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             
             // 上传新头像
             String fileName = FileUtils.upload(file, uploadPath + "/avatar");
-            String avatarUrl = accessPath + "/avatar/" + fileName;
+            // 返回完整的访问路径（包含/api前缀，因为context-path是/api）
+            String avatarUrl = "/api" + accessPath + "/avatar/" + fileName;
 
             // 更新用户头像
             SysUser updateUser = new SysUser();
@@ -392,13 +403,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     /**
      * 获取有效的头像URL
-     * 
+     *
      * @param avatar 原头像URL
      * @return 有效的头像URL
      */
     private String getEffectiveAvatarUrl(String avatar) {
         if (avatar == null || avatar.isEmpty()) {
             return defaultAvatarUrl;
+        }
+        // 如果头像URL不是以http开头（外部链接），且不是以/api开头，则添加/api前缀
+        if (!avatar.startsWith("http") && !avatar.startsWith("/api")) {
+            return "/api" + avatar;
         }
         return avatar;
     }

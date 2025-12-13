@@ -84,4 +84,4 @@ logging:
 # 默认头像配置
 default:
   avatar:
-    url: /uploads/avatar/default/default.jpg
+    url: /api/uploads/avatar/default/default.jpg

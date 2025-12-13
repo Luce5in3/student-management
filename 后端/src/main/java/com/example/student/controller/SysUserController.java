@@ -175,7 +175,7 @@ public class SysUserController {
     public Result<String> uploadAvatar(@RequestParam("file") MultipartFile file) {
         Long userId = SecurityUtils.getUserId();
         String avatarUrl = sysUserService.uploadAvatar(userId, file);
-        return Result.success(avatarUrl);
+        return Result.success("头像上传成功", avatarUrl);
     }
 
     /**

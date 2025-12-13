@@ -13,6 +13,7 @@ import com.example.student.security.LoginUser;
 import com.example.student.service.LoginService;
 import com.example.student.util.JwtUtil;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,18 +36,21 @@ public class LoginServiceImpl implements LoginService {
 
     @Resource
     private SysUserMapper sysUserMapper;
-    
+
     @Resource
     private SysMenuMapper sysMenuMapper;
 
     @Resource
     private TeacherMapper teacherMapper;
-    
+
     @Resource
     private StudentMapper studentMapper;
 
     @Resource
     private JwtUtil jwtUtil;
+
+    @Value("${default.avatar.url:/api/uploads/avatar/default.jpg}")
+    private String defaultAvatarUrl;
 
     @Override
     public LoginResponseDTO login(LoginDTO loginDTO) {
@@ -95,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
                 .userId(user.getId())
                 .username(user.getUsername())
                 .name(user.getName())
-                .avatar(user.getAvatar())
+                .avatar(getEffectiveAvatarUrl(user.getAvatar()))
                 .userType(user.getUserType())
                 .teacherId(teacherId)
                 .studentId(studentId)
@@ -143,7 +147,7 @@ public class LoginServiceImpl implements LoginService {
                 .userId(user.getId())
                 .username(user.getUsername())
                 .name(user.getName())
-                .avatar(user.getAvatar())
+                .avatar(getEffectiveAvatarUrl(user.getAvatar()))
                 .userType(user.getUserType())
                 .teacherId(teacherId)
                 .studentId(studentId)
@@ -230,5 +234,22 @@ public class LoginServiceImpl implements LoginService {
         }
         
         return menuList;
+    }
+
+    /**
+     * 获取有效的头像URL
+     *
+     * @param avatar 原头像URL
+     * @return 有效的头像URL
+     */
+    private String getEffectiveAvatarUrl(String avatar) {
+        if (avatar == null || avatar.isEmpty()) {
+            return defaultAvatarUrl;
+        }
+        // 如果头像URL不是以http开头（外部链接），且不是以/api开头，则添加/api前缀
+        if (!avatar.startsWith("http") && !avatar.startsWith("/api")) {
+            return "/api" + avatar;
+        }
+        return avatar;
     }
 } 
