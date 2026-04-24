@@ -1,0 +1,8 @@
+2026-04-24 13:05:06.893 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.AttendanceMapper.getClassesByIds] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:06.894 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.AttendanceMapper.getClassAttendanceStatisticsById] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:06.953 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.ClassMapper.selectClassList] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:06.983 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.CourseMapper.selectCourseBySemester] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:06.983 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.CourseMapper.selectCourseCountByDepartment] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:07.006 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.CourseOfferingMapper.getClassIdByCourseOfferingId] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:07.006 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.CourseOfferingMapper.selectAllSemesters] is ignored, because it exists, maybe from xml file
+2026-04-24 13:05:07.244 [main] ERROR c.baomidou.mybatisplus.core.MybatisConfiguration - mapper[com.example.student.mapper.NoticeMapper.selectPublishedNotices] is ignored, because it exists, maybe from xml file
